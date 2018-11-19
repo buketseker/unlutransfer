@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <!--<record model="ir.ui.view" id="view_lead_additionals">
+            <field name="name">crm.lead.additions.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="beklenen_ciro"/>
+                    <field name="beklenen_ciro_kuru"/>
+                </xpath>
+            </field>
+        </record>-->
+
+        <record model="ir.ui.view" id="view_account_additionals">
+            <field name="name">account.invoice.additions.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@groups='base.group_multi_currency']" position="after">
+                    <field name="currency_rate_type_id" options="{'no_quick_create':True}"
+                                                        attrs="{'invisible':['|','|',('custom_rate', '=', True),('currency_id', '=', False),('currency_id', '=', 'company_currency_id')]}"/>
+
+                    <field name="currency_rate" attrs="{'readonly':[('custom_rate', '=', False)],
+                                                        'invisible':['|',('currency_id', '=', False),('currency_id', '=', 'company_currency_id')]}"/>
+
+                    <field name="custom_rate" attrs="{'invisible':['|',('currency_id', '=', False),('currency_id', '=', 'company_currency_id')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_currency_form_additional">
+            <field name="name">currency.extended.form</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='rate']" position="after">
+                    <field name="banknot_buying_rate" />
+                    <field name="forex_selling_rate" />
+                    <field name="forex_buying_rate" />
+                    <field name="special_rate"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_currency_rate_tree_additional">
+            <field name="name">currency.rate.extended.tree</field>
+            <field name="model">res.currency.rate</field>
+            <field name="inherit_id" ref="base.view_currency_rate_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='rate']" position="before">
+                    <field name="forex_buying_rate"/>
+                    <field name="forex_selling_rate"/>
+                    <field name="banknot_buying_rate"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
