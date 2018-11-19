@@ -21,7 +21,7 @@
     # any module necessary for this one to work correctly
     'depends': ['base',
                 'account',
-                'tcmb_currency_rate_live'],
+                'tcmb_currency_rate_live-master'],
 
     # always loaded
     'data': [
