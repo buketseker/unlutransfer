@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="nitro_product_stock_account_tree_view" model="ir.ui.view">
+            <field name="name">nitro.product.stock.account.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock_account.view_stock_product_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stock_value']" position="after">
+                    <field name="stock_value_base" sum="Stock Valuation on Base" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

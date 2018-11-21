@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+        <!-- Contact Region Menu Action-->
+        <record id="contact_region_action" model="ir.actions.act_window">
+            <field name="name">Bölgeler</field>
+            <field name="res_model">res.contact.region</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first contact region
+                </p>
+            </field>
+        </record>
+
+        <!-- Contact Region Menu Item (under the configurations)-->
+        <menuitem id="res_contact_region_menu" name="Bölgeler"
+                      parent="contacts.menu_localisation"
+                      action="contact_region_action"
+                      sequence="4"
+                      />
+
+        <!-- Contact Region Tree View-->
+        <record id="nitro_res_contact_region_tree_view" model="ir.ui.view">
+            <field name="name">nitro.res.contact.region.tree.view</field>
+            <field name="model">res.contact.region</field>
+            <field name="arch" type="xml">
+                <tree string="Bölgeler">
+                    <field name="name" />
+                    <field name="country_id" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Contact Region Form View-->
+        <record id="nitro_res_contact_region_form_view" model="ir.ui.view">
+            <field name="name">nitro.res.contact.region.form.view</field>
+            <field name="model">res.contact.region</field>
+            <field name="arch" type="xml">
+                <form string="Bölgeler">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="country_id" />
+                            <field name="code" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Extended Res Partner Form View-->
+        <record id="nitro_res_partner_form_view" model="ir.ui.view">
+            <field name="name">nitro.res.partner.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="before">
+                    <field name="region_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Extended Product Template-->
+        <record id="nitro_product_template_form_view" model="ir.ui.view">
+            <field name="name">nitro.product.template.form.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="before">
+                    <label class="oe_edit_only" for="product_invoice_name" string="Ürün Fatura İsmi"/>
+                    <h1><field name="product_invoice_name" placeholder="Ürünün Fatura İsmi"/></h1>
+                </xpath>
+            </field>
+        </record>
+
+         <!-- Extended Sale Order Form View -->
+        <record id="nitro_sale_order_form_view_template" model="ir.ui.view">
+            <field name="name">nitro.sale.order.form.view.template</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group//field[@name='payment_term_id']" position="after">
+                    <field name="warehouse_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Extended Sale Information Tab Page-->
+        <record id="nitro_sale_information_tab_view_template" model="ir.ui.view">
+            <field name="name">nitro.sale.information.tab.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sale_shipping']" position="replace">
+                     <field name="incoterm" widget="selection" groups="sale_stock.group_display_incoterm"/>
+                     <field name="picking_policy" required="True"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
